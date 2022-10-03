@@ -103,5 +103,12 @@ dist
 # TernJS port file
 .tern-port
 
-.idea/*
-.vs/*
+/.idea
+/.vs
+
+/node_modules
+/client/node_modules
+/client/build
+
+/package-lock.json
+/client/package-lock.json

@@ -1,0 +1,42 @@
+{
+  "name": "csc302-assignments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "setup": "npm install && cd client && npm install && cd ..",
+    "dev": "cd client && npm run build && cd .. && nodemon server.js",
+    "client": "npm start --prefix client",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "mocha --timeout 30000 --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Austin618/CSC302-Assignments.git"
+  },
+  "author": "Austin & Shirley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Austin618/CSC302-Assignments/issues"
+  },
+  "homepage": "https://github.com/Austin618/CSC302-Assignments#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "connect-mongo": "^4.6.0",
+    "connect-mongodb-session": "^3.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.4"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "concurrently": "^7.4.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.20"
+  }
+}
