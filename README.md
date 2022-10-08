@@ -14,10 +14,10 @@
 * Database Access Link(using MongoDB Compass): mongodb+srv://1281784448yeqiming:ming98xin@assignments.os7jj8s.mongodb.net/test?retryWrites=true&w=majority
 
 ### Meeting notes
-* Please check Meeting_Notes.docx for details
+* Please check /MeetingNotes directory
 
 ### Documentation
-* Please check Documentation.docx for details
+* Please check /Documentation directory
 
 ### Roadmap
 * Please check Roadmap.docx for details
@@ -36,17 +36,9 @@ Use these codes in terminal to get start: (Use Port 5000, i.e. http://localhost:
 ```
 $ npm run setup
 ```
-The code above is equivalent to: (You can also use this code below, skip it if you have already run \<npm run setup\>)
-``` 
-$ cd client && npm install && cd .. && npm install
-```
 Then, you just need to run the code below:
 ```
 $ npm run dev
-```
-The code above is equivalent to: (You can also use this code below, skip it if you have already run \<npm run dev\>)
-```
-cd client && npm run build && cd .. && nodemon server.js
 ```
 To run API tests, you can run the code below:
 ```
