@@ -14,13 +14,15 @@
 * Database Access Link(using MongoDB Compass): mongodb+srv://1281784448yeqiming:ming98xin@assignments.os7jj8s.mongodb.net/test?retryWrites=true&w=majority
 
 ### Meeting notes
-* Please check /MeetingNotes directory
+* Please check all pdfs in ./MeetingNotes directory
 
 ### Documentation
-* Please check /Documentation directory
+* Please check CSC302_A1.pdf in ./Documentation directory 
 
 ### Roadmap
-* Please check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
+* Please check Milestones part for Roadmap in CSC302_A1.pdf in ./Documentation directory 
+
+* Please also check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
     * There are descriptions and status for each step of milestones
 * You can also check Milestones from Github Issues by clicking Github_main_repository -> Issues -> Milestones
 * You can also check each step for milestones from Github issues by clicking Github_main_repository -> Issues
