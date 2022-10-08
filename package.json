@@ -30,9 +30,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.10.0",
-    "mongoose": "^6.6.4"
-  },
-  "devDependencies": {
+    "mongoose": "^6.6.4",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "concurrently": "^7.4.0",

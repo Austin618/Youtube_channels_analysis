@@ -7,4 +7,4 @@ COPY . .
 EXPOSE 5000
 RUN chown -R node /usr/src/app
 USER node
-CMD ["npm", "server.js"]
+CMD ["npm", "start"]
