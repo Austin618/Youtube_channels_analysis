@@ -20,11 +20,9 @@
 * Please check /Documentation directory
 
 ### Roadmap
-* Please check Roadmap.docx for details
-
-* You can also check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
+* Please check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
     * There are descriptions and status for each step of milestones
-* You can also check Milestones from Github issues by clicking Github_main_repository -> Issues -> Milestones
+* You can also check Milestones from Github Issues by clicking Github_main_repository -> Issues -> Milestones
 * You can also check each step for milestones from Github issues by clicking Github_main_repository -> Issues
 
 #### Installation for tech stack
