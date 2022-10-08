@@ -36,5 +36,5 @@ $ docker-compose up (and then open http://localhost:5000/ to view the website)
 ```
 To run API tests, you can run the code below:
 ```
-$ npm test
+$ docker-compose -p tests run -e "NODE_ENV=production" csc302assignments npm run test
 ```
