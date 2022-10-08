@@ -15,7 +15,7 @@ describe('Test challengeTypes API', () => {
                 .set("Content-Type", "application/json")
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body[0].should.have.property('testMsg').equal("Welcome to CSC302 Assignments!");
+                    response.body[0].should.have.property('testMsg').equal("Welcome to CSC302 Assignments! Connected to database!");
                     done();
                 })
         })
