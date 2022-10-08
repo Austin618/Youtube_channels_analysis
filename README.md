@@ -38,5 +38,5 @@ $ docker-compose up
 
 To run API tests, you can run the code below:
 ```
-$ docker-compose -p tests run -e "NODE_ENV=production" csc302assignments npm run test
+$ docker-compose -p tests run csc302assignments npm run test
 ```
