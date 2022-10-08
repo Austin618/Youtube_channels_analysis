@@ -26,9 +26,7 @@
 * You can also check each step for milestones from Github issues by clicking Github_main_repository -> Issues
 
 #### Installation for tech stack
-Please go to https://nodejs.org/en/ to install nodeJs the latest LTS version.
-##### Note: If you wish to set this up on their machine or a remote server, please ensure your nodeJs is later than 16.14.2 LTS version and npm later than 8.1.0. School lab are not available to run this project since nodeJs is not later than 16.14.2 LTS version.
-
+Please install Docker to run the Docker command and build the project in dev
 #### Build web app and test locally
 build project: 
 ```
