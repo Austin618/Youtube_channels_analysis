@@ -30,13 +30,9 @@ Please go to https://nodejs.org/en/ to install nodeJs the latest LTS version.
 ##### Note: If you wish to set this up on their machine or a remote server, please ensure your nodeJs is later than 16.14.2 LTS version and npm later than 8.1.0. School lab are not available to run this project since nodeJs is not later than 16.14.2 LTS version.
 
 #### Build web app and test locally
-Use these codes in terminal to get start: (Use Port 5000, i.e. http://localhost:5000/)
+build project: 
 ```
-$ npm run setup
-```
-Then, you just need to run the code below:
-```
-$ npm run dev
+$ docker-compose up (and then open http://localhost:5000/ to view the website)
 ```
 To run API tests, you can run the code below:
 ```
