@@ -20,7 +20,7 @@
 * Please check CSC302_A1.pdf in ./Documentation directory 
 
 ### Roadmap
-* Please check Milestones part for Roadmap in CSC302_A1.pdf in CSC302_A1.pdf
+* Please check Milestones part for Roadmap in CSC302_A1.pdf in ./Documentation directory 
 
 * Please also check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
     * There are descriptions and status for each step of milestones
