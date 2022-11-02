@@ -3,6 +3,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require('axios');
+
+const apiKey = "AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ";
+const baseApiUrl = "https://youtube.googleapis.com/youtube/v3";
+// https://youtube.googleapis.com/youtube/v3
+// /channels?part=snippet%2CcontentDetails%2Cstatistics
+// &id=UC_x5XG1OV2P6uZZ5FSM9Ttw
+// &key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 
 // Import the mongoose models
 const { Tests } = require("./models/test")
@@ -27,7 +35,6 @@ app.use(cors())
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 
-
 app.get('/api/tests', (req, res) => {
     try {
         Tests.find({}, {__v:0}).then((result) => {
@@ -42,6 +49,32 @@ app.get('/api/tests', (req, res) => {
     }
 })
 
+// https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
+// /api/channels/UC_x5XG1OV2P6uZZ5FSM9Ttw
+app.get("/api/channels/:channel_id", async(req, res) => {
+    const channelId = req.params.channel_id;
+    const url = `${baseApiUrl}/channels?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}`
+    const response = await axios.get(url);
+    res.send(response.data.items);
+})
+
+// https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
+// /api/playlists/UC_x5XG1OV2P6uZZ5FSM9Ttw
+app.get("/api/playlists/:channel_id", async(req, res) => {
+    const channelId = req.params.channel_id;
+    const url = `${baseApiUrl}/playlists?key=${apiKey}&part=snippet%2CcontentDetails&channelId=${channelId}&maxResults=50`
+    const response = await axios.get(url);
+    res.send(response.data.items);
+})
+
+// https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
+// /api/videos/UC_x5XG1OV2P6uZZ5FSM9Ttw
+app.get("/api/videos/:channel_id", async(req, res) => {
+    const channelId = req.params.channel_id;
+    const url = `${baseApiUrl}/search?key=${apiKey}&part=snippet&id=${channelId}&maxResults=50`
+    const response = await axios.get(url);
+    res.send(response.data.items);
+})
 
 // Others
 app.get('*', (req, res) => {
@@ -50,12 +83,10 @@ app.get('*', (req, res) => {
     // you could also send back a fancy 404 webpage here.
 });
 
-
 const port = process.env.PORT || 5000
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`)
 })
-
 
 function isMongoError(error) {
     // checks for first error returned by promise rejection

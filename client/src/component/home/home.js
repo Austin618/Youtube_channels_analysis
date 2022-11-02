@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./home.css";
 
 import axios from "axios";
+import Navbar from "../navbar/navbar";
 
 
 /* Component for the Home page */
@@ -33,6 +34,7 @@ class Home extends React.Component {
 
         return (
             <div>
+                <Navbar />
                 <h1>{ this.state.str }</h1>
             </div>
         );
