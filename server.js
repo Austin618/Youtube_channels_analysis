@@ -55,6 +55,8 @@ app.get("/api/channels/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/channels?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}`
     const response = await axios.get(url);
+    console.log(response)
+    console.log(channelId)
     res.send(response.data.items);
 })
 
@@ -64,6 +66,8 @@ app.get("/api/playlists/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/playlists?key=${apiKey}&part=snippet%2CcontentDetails&channelId=${channelId}&maxResults=50`
     const response = await axios.get(url);
+    console.log(response)
+    console.log(channelId)
     res.send(response.data.items);
 })
 

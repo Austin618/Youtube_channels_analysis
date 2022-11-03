@@ -12,13 +12,20 @@
   "author": "Austin & Shirley",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.12",
+    "@mui/styled-engine-sc": "^5.10.6",
     "axios": "^0.27.2",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
+    "styled-components": "^5.3.6",
     "web-vitals": "^3.0.2"
   },
   "browserslist": {
