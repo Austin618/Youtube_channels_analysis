@@ -5,7 +5,7 @@
 }
 
 :root {
-    --mainColor: #242424;
+    --mainColor: #000000;
     --mainColorLight: #3dff00;
     --secondaryColor: #6eb2fb;
     --textColor: #eee;
@@ -24,21 +24,49 @@ header {
     background-color: var(--mainColor);
     color: var(--textColor);
 }
+
 nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-nav a {
+.logoBox {
+    min-width: 280px;
     margin: 0 1rem;
     color: var(--textColor);
     text-decoration: none;
     font-size: 2rem;
     float: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    /*padding: 0 1rem;*/
+    background-color: var(--mainColor);
+    cursor: pointer;
 }
 
-nav a:hover {
+nav button {
+    margin: 0 1rem;
+    color: var(--textColor);
+    text-decoration: none;
+    font-size: 2rem;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    /*padding: 0 1rem;*/
+    background-color: var(--mainColor);
+    cursor: pointer;
+}
+
+.logoBox:hover {
+    color: var(--secondaryColor);
+}
+
+nav button:hover {
     color: var(--secondaryColor);
 }
 
@@ -61,7 +89,7 @@ nav {
     align-items: center;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1115px) {
     header .nav-btn {
         visibility: visible;
         opacity: 1;
@@ -96,4 +124,13 @@ nav {
     nav a {
         font-size: 3rem;
     }
+}
+
+.searchBox{
+    width: 400px;
+    height: 50px;
+}
+
+nav input{
+    font-size: larger;
 }
