@@ -124,17 +124,24 @@ class Channel extends React.Component {
 
                         <div className="counter">
                             <div className="row">
-                                <div className="col-6 col-lg-6">
+                                <div className="col-6 col-lg-4">
                                     <div className="count-data text-center">
                                         <Link to={`/playlists/${this.state.channelId}`}>
                                             <button>PlayList</button>
                                         </Link>
                                     </div>
                                 </div>
-                                <div className="col-6 col-lg-6">
+                                <div className="col-6 col-lg-4">
                                     <div className="count-data text-center">
                                         <Link to={`/videos/${this.state.channelId}`}>
                                             <button>Videos List</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="col-6 col-lg-4">
+                                    <div className="count-data text-center">
+                                        <Link to="/Recommend">
+                                            <button>Recommend</button>
                                         </Link>
                                     </div>
                                 </div>

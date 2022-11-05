@@ -38,7 +38,6 @@ class Navbar extends React.Component {
                 <nav ref={this.navRef}>
                     {/*<Link to="/"><button className="buttonBox">Home</button></Link>*/}
                     {/*<Link to="/Channel"><button className="buttonBox">Channel</button></Link>*/}
-                    <Link to="/Recommend"><button className="buttonBox">Recommend</button></Link>
                     <input
                         className="searchBox"
                         placeholder=" Please enter Channel ID..."
