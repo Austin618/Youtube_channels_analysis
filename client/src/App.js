@@ -6,6 +6,10 @@ import {Route, Routes, BrowserRouter, Link} from 'react-router-dom';
 import axios from 'axios';
 
 import Home from './component/home/home';
+import Recommend from "./component/recommend/recommend";
+import Channel from "./component/channel/channel";
+import PlaylistInfo from "./component/playlistInfo/playlistInfo";
+import VideoListInfo from "./component/videoListInfo/videoListInfo";
 
 class App extends React.Component {
 
@@ -19,7 +23,11 @@ class App extends React.Component {
         <BrowserRouter>
           <Routes> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route path="/" element={<Home/>}/>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/channel/:id' element={<Channel/>}/>
+            <Route path='/playlists/:id' element={<PlaylistInfo/>}/>
+            <Route path='/videos/:id' element={<VideoListInfo/>}/>
+            <Route path='/recommend' element={<Recommend/>}/>
           </Routes>
         </BrowserRouter>
       </div>

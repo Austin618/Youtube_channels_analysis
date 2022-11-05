@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./PlaylistInfo.css";
+import "./playlistInfo.css";
 
 import axios from "axios";
 
@@ -20,11 +20,11 @@ import Select from '@mui/material/Select';
 /* Component for the playlist info */
 function PlaylistInfo(props) {
 
-    const resultFound = props.resultFound
+    // const resultFound = props.resultFound
     const playlistInfo = props.playlistInfo
     const [showMore, setShowMore] = useState(false)
     const [sortBy, setSortBy] = React.useState('');
-    const [curList,setCurList]= useState(playlistInfo)
+    // const [curList,setCurList]= useState(playlistInfo)
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -59,11 +59,11 @@ function PlaylistInfo(props) {
 
     return (
         <div>
-            {resultFound ? (
+            {/*{resultFound ? (*/}
                 <div>
                 <h1 id="title">Playlist Info</h1>
 
-                <Box sx={{ width: "30%" , ml:"15%", marginBottom:"10px"}}>
+                <Box sx={{ width: "30%" , ml:"15%", marginBottom:"20px", marginTop:"30px"}}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
                         <Select
@@ -75,8 +75,8 @@ function PlaylistInfo(props) {
                         >
                         <MenuItem value={1}>Video Number: high to low</MenuItem>
                         <MenuItem value={2}>Video Number: low to high</MenuItem>
-                        <MenuItem value={3}>Published Time: latest to earlist</MenuItem>
-                        <MenuItem value={4}>Published Time: earlist to latest</MenuItem>
+                        <MenuItem value={3}>Published Time: latest to earliest</MenuItem>
+                        <MenuItem value={4}>Published Time: earliest to latest</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -103,10 +103,10 @@ function PlaylistInfo(props) {
                                 </StyledTableRow>
                             ))}
                             <StyledTableRow>
-                                <StyledTableCell component="th" scope="row"></StyledTableCell>
+                                <StyledTableCell component="th" scope="row"/>
                                 <StyledTableCell id="showMore" align="center" onClick={()=>showLess()}>Show less...</StyledTableCell>
-                                <StyledTableCell></StyledTableCell>
-                                <StyledTableCell></StyledTableCell>
+                                <StyledTableCell/>
+                                <StyledTableCell/>
                                 </StyledTableRow>
                         </TableBody>)
                         :(<TableBody>
@@ -121,10 +121,10 @@ function PlaylistInfo(props) {
                                 </StyledTableRow>
                             ))}
                             <StyledTableRow>
-                                <StyledTableCell component="th" scope="row"></StyledTableCell>
+                                <StyledTableCell component="th" scope="row"/>
                                 <StyledTableCell id="showMore" align="center" onClick={()=>showmore()}>Show more...</StyledTableCell>
-                                <StyledTableCell></StyledTableCell>
-                                <StyledTableCell></StyledTableCell>
+                                <StyledTableCell/>
+                                <StyledTableCell/>
                                 </StyledTableRow>
                         </TableBody>)
                         }
@@ -132,8 +132,8 @@ function PlaylistInfo(props) {
                 </Table>
                 </TableContainer>
                 </div>
-            )
-            :null}
+            {/*// )*/}
+            {/*// :null}*/}
         </div>)
 }
 
