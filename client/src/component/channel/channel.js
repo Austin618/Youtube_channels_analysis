@@ -16,6 +16,7 @@ class Channel extends React.Component {
         super(props);
 
         this.state = {
+            errorMsg: null,
             channelId: window.location.pathname.slice(9,),
             channelInfo: null,
         };
@@ -30,10 +31,21 @@ class Channel extends React.Component {
             this.setState({channelInfo: json})
         }).catch(error => {
             console.log(error)
+            this.setState({
+                errorMsg: "Channel cannot find!"
+            })
         });
     }
 
     render() {
+        if (this.state.errorMsg !== null) {
+            return (
+                <div>
+                    <Navbar />
+                    <h1>{this.state.errorMsg}</h1>
+                </div>
+            )
+        }
         if (!this.state.channelInfo) {
             return (
                 <div>
@@ -47,7 +59,7 @@ class Channel extends React.Component {
             return (
                 <div>
                     <Navbar />
-                    <h1>Data Error!</h1>
+                    <h1>Data format Error!</h1>
                 </div>
             )
         }
@@ -57,97 +69,109 @@ class Channel extends React.Component {
                 {console.log(this.state.channelInfo[0])}
                 <Navbar />
                 <section className="section about-section" id="about">
-                    <div className="container">
-                        <div className="col-lg-2">
-                            <Link to="/">
-                                <div className="backButton">
-                                    <button>Back</button>
-                                </div>
-                            </Link>
-                        </div>
 
-                        <div className="row align-items-center">
-                            <div className="col-lg-7">
-                                <div className="about-text">
-                                    <h3 className="dark-color">Channel Description</h3>
-                                    <div className="about-list">
-                                        <label>Channel Name</label>
-                                        <p>{this.state.channelInfo[0].snippet.title}</p>
-
-                                        <label>Channel ID</label>
-                                        <p>{this.state.channelInfo[0].id}</p>
-
-                                        <label>Etag</label>
-                                        <p>{this.state.channelInfo[0].etag}</p>
-
-                                        <label>Published at</label>
-                                        <p>{this.state.channelInfo[0].snippet.publishedAt}}</p>
-
-                                        <label>Country</label>
-                                        <p>{this.state.channelInfo[0].snippet.country}</p>
-
-                                        <label>Official site:</label>
-                                        <a href={`https://www.youtube.com/${this.state.channelInfo[0].snippet.customUrl}`}> {`https://www.youtube.com/${this.state.channelInfo[0].snippet.customUrl}`}</a>
-                                    </div>
-                                    <p> {this.state.channelInfo[0].snippet.description.replace(/(\r\n|\n|\r)/gm,"")} </p>
-                                </div>
+                    <div className="linkPosition">
+                        <Link to="/">
+                            <div className="backButton">
+                                <button>Back</button>
                             </div>
-                            <div className="col-lg-3">
-                                <div className="about-avatar">
-                                    <img src={this.state.channelInfo[0].snippet.thumbnails.high.url} title="" alt="Youtube avatar"/>
+                        </Link>
+                    </div>
+
+                    <div className="row align-items-center">
+                        <div className="leftBox">
+                            <div className="about-text">
+                                <h3 className="dark-color">Channel Description</h3>
+                                <div className="about-list">
+                                    <label>Channel Name</label>
+                                    <p>{this.state.channelInfo[0].snippet.title}</p>
+
+                                    <label>Channel ID</label>
+                                    <p>{this.state.channelInfo[0].id}</p>
+
+                                    <label>Etag</label>
+                                    <p>{this.state.channelInfo[0].etag}</p>
+
+                                    <label>Published at</label>
+                                    <p>{this.state.channelInfo[0].snippet.publishedAt}}</p>
+
+                                    <label>Country</label>
+                                    <p>{this.state.channelInfo[0].snippet.country}</p>
+
+                                    <label>Official site:</label>
+                                    <a href={`https://www.youtube.com/${this.state.channelInfo[0].snippet.customUrl}`}> {`https://www.youtube.com/${this.state.channelInfo[0].snippet.customUrl}`}</a>
                                 </div>
+                                <p> {this.state.channelInfo[0].snippet.description.replace(/(\r\n|\n|\r)/gm,"")} </p>
                             </div>
                         </div>
-
-                        <div className="counter">
-                            <div className="row">
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <h6 className="count h2">{this.state.channelInfo[0].statistics.viewCount}</h6>
-                                        <p>View Count</p>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <h6 className="count h2">{this.state.channelInfo[0].statistics.subscriberCount}</h6>
-                                        <p>Subscriber Count</p>
-                                    </div>
-                                </div>
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <h6 className="count h2">{this.state.channelInfo[0].statistics.videoCount}</h6>
-                                        <p>Video Count</p>
-                                    </div>
-                                </div>
+                        <div className="rightBox">
+                            <div className="about-avatar">
+                                <img src={this.state.channelInfo[0].snippet.thumbnails.high.url} title="" alt="Youtube avatar"/>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="counter">
-                            <div className="row">
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <Link to={`/playlists/${this.state.channelId}`}>
-                                            <button>PlayList</button>
-                                        </Link>
-                                    </div>
+                    <div className="counter">
+                        <div className="row">
+                            <div className="MiddleLeft">
+                                <div className="count-data text-center">
+                                    <h6 className="count h2">{this.state.channelInfo[0].statistics.viewCount}</h6>
+                                    <p>View Count</p>
                                 </div>
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <Link to={`/videos/${this.state.channelId}`}>
-                                            <button>Videos List</button>
-                                        </Link>
-                                    </div>
+                            </div>
+                            <div className="MiddleMiddle">
+                                <div className="count-data text-center">
+                                    <h6 className="count h2">{this.state.channelInfo[0].statistics.subscriberCount}</h6>
+                                    <p>Subscriber Count</p>
                                 </div>
-                                <div className="col-6 col-lg-4">
-                                    <div className="count-data text-center">
-                                        <Link to="/Recommend">
-                                            <button>Recommend</button>
-                                        </Link>
-                                    </div>
+                            </div>
+                            <div className="MiddleRight">
+                                <div className="count-data text-center">
+                                    <h6 className="count h2">{this.state.channelInfo[0].statistics.videoCount}</h6>
+                                    <p>Video Count</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div className="counter">
+                        <div className="row">
+                            <div className="bottomLeft">
+                                <div className="count-data text-center">
+                                    <Link to={`/playlists/${this.state.channelId}`}>
+                                        <button>PlayList</button>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="bottomRight">
+                                <div className="count-data text-center">
+                                    <Link to={`/videos/${this.state.channelId}`}>
+                                        <button>Videos List</button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="counter">
+                        <div className="row">
+                            <div className="bottomLeft">
+                                <div className="count-data text-center">
+                                    <Link to={`/titleKeyword/${this.state.channelId}`}>
+                                        <button>Title Keyword Recommend</button>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="bottomRight">
+                                <div className="count-data text-center">
+                                    <Link to={`/descriptionKeyword/${this.state.channelId}`}>
+                                        <button>Description Keyword Recommend</button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </section>
             </div>
         );
