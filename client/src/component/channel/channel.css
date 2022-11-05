@@ -3,7 +3,7 @@ body{
 }
 .section {
     padding: 5% 0;
-    position: relative;
+    /*position: relative;*/
 }
 
 button {
@@ -84,7 +84,7 @@ label {
     font-weight: 600;
     width: 88px;
     margin: 0;
-    position: relative;
+    /*position: relative;*/
 }
 .about-list label:after {
     content: "";
@@ -145,4 +145,39 @@ label {
 
 .dark-color {
     color: #20247b;
+}
+
+.leftBox{
+    margin-left: 8%;
+    width: 50%;
+}
+
+.rightBox{
+    margin-left: 6%;
+    width: 30%;
+}
+
+.MiddleLeft {
+    margin-left: 7%;
+    width: 27%;
+}
+
+.MiddleMiddle{
+    margin-left: 6%;
+    width: 27%;
+}
+
+.MiddleRight{
+    margin-left: 6%;
+    width: 27%;
+}
+
+.bottomLeft {
+    margin-left: 8%;
+    width: 40%;
+}
+
+.bottomRight{
+    margin-left: 6%;
+    width: 40%;
 }
