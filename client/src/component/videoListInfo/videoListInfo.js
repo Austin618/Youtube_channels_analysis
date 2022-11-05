@@ -111,23 +111,23 @@ class VideoListInfo extends React.Component {
                 {console.log(this.state.channelId)}
                 {console.log(this.state.videoListInfo[0])}
                 <Navbar />
-                <Box sx={{ width: "30%" , ml:"15%", marginBottom:"20px", marginTop:"30px"}}>
-                    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            label="Sort By"
-                            value={this.state.sortBy}
-                            onChange={this.state.handleChange}
-                        >
-                            <MenuItem value={1}>View Count: high to low</MenuItem>
-                            <MenuItem value={2}>View Count: low to high</MenuItem>
-                            <MenuItem value={3}>Published Time: latest to earliest</MenuItem>
-                            <MenuItem value={4}>Published Time: earliest to latest</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
+                {/*<Box sx={{ width: "30%" , ml:"15%", marginBottom:"20px", marginTop:"30px"}}>*/}
+                {/*    <FormControl fullWidth>*/}
+                {/*        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>*/}
+                {/*        <Select*/}
+                {/*            labelId="demo-simple-select-label"*/}
+                {/*            id="demo-simple-select"*/}
+                {/*            label="Sort By"*/}
+                {/*            value={this.state.sortBy}*/}
+                {/*            onChange={this.state.handleChange}*/}
+                {/*        >*/}
+                {/*            <MenuItem value={1}>View Count: high to low</MenuItem>*/}
+                {/*            <MenuItem value={2}>View Count: low to high</MenuItem>*/}
+                {/*            <MenuItem value={3}>Published Time: latest to earliest</MenuItem>*/}
+                {/*            <MenuItem value={4}>Published Time: earliest to latest</MenuItem>*/}
+                {/*        </Select>*/}
+                {/*    </FormControl>*/}
+                {/*</Box>*/}
 
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
