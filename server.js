@@ -71,11 +71,11 @@ app.get("/api/playlists/:channel_id", async(req, res) => {
     res.send(response.data.items);
 })
 
-// https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
+// https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // /api/videos/UC_x5XG1OV2P6uZZ5FSM9Ttw
 app.get("/api/videos/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
-    const url = `${baseApiUrl}/search?key=${apiKey}&part=snippet&id=${channelId}&maxResults=50`
+    const url = `${baseApiUrl}/search?key=${apiKey}&part=snippet&order=viewCount&id=${channelId}&maxResults=50`
     const response = await axios.get(url);
     res.send(response.data.items);
 })

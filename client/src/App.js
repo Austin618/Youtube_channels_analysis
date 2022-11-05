@@ -6,10 +6,11 @@ import {Route, Routes, BrowserRouter, Link} from 'react-router-dom';
 import axios from 'axios';
 
 import Home from './component/home/home';
-import Recommend from "./component/recommend/recommend";
+import TitleKeyword from "./component/titleKeyword/titleKeyword";
 import Channel from "./component/channel/channel";
 import PlaylistInfo from "./component/playlistInfo/playlistInfo";
 import VideoListInfo from "./component/videoListInfo/videoListInfo";
+import DescriptionKeyword from "./component/descriptionKeyword/descriptionKeyword";
 
 class App extends React.Component {
 
@@ -27,7 +28,8 @@ class App extends React.Component {
             <Route path='/channel/:id' element={<Channel/>}/>
             <Route path='/playlists/:id' element={<PlaylistInfo/>}/>
             <Route path='/videos/:id' element={<VideoListInfo/>}/>
-            <Route path='/recommend' element={<Recommend/>}/>
+            <Route path='/titleKeyword/:id' element={<TitleKeyword/>}/>
+            <Route path='/descriptionKeyword/:id' element={<DescriptionKeyword/>}/>
           </Routes>
         </BrowserRouter>
       </div>

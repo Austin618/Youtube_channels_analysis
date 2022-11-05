@@ -128,6 +128,13 @@ class VideoListInfo extends React.Component {
                 {/*        </Select>*/}
                 {/*    </FormControl>*/}
                 {/*</Box>*/}
+                <div className="linkPosition">
+                    <Link to={`/channel/${this.state.channelId}`}>
+                        <div className="backButton">
+                            <button>Back</button>
+                        </div>
+                    </Link>
+                </div>
 
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
