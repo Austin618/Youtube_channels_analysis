@@ -55,8 +55,8 @@ app.get("/api/channels/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/channels?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}`
     const response = await axios.get(url);
-    console.log(response)
-    console.log(channelId)
+    // console.log(response)
+    // console.log(channelId)
     res.send(response.data.items);
 })
 
@@ -66,19 +66,36 @@ app.get("/api/playlists/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/playlists?key=${apiKey}&part=snippet%2CcontentDetails&channelId=${channelId}&maxResults=50`
     const response = await axios.get(url);
-    console.log(response)
-    console.log(channelId)
+    // console.log(response)
+    // console.log(channelId)
     res.send(response.data.items);
 })
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
+// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=htG27DW5ju4%2CrDZ1AjDJjFI%2CogfYd705cRs&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // /api/videos/UC_x5XG1OV2P6uZZ5FSM9Ttw
 app.get("/api/videos/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/search?key=${apiKey}&part=snippet&order=viewCount&id=${channelId}&maxResults=50`
     const response = await axios.get(url);
-    res.send(response.data.items);
+    // res.send(response.data.items);
+    // console.log(response.data.items);
+    if (response.data.items.length === 0) {
+        return res.status(404).send(response.data.items);
+    }
+    let videoIdUrls = "";
+    for (let i = 0; i < response.data.items.length; i++) {
+        videoIdUrls = videoIdUrls.concat(response.data.items[i].id.videoId);
+        videoIdUrls = videoIdUrls.concat("%2C");
+    }
+    // console.log(videoIdUrls);
+    const url2 = `${baseApiUrl}/videos?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${videoIdUrls.slice(0, -3)}`;
+    // console.log(url2);
+    const response2 = await axios.get(url2);
+    // console.log(response2.data.items);
+    res.send(response2.data.items);
 })
+
 
 // Others
 app.get('*', (req, res) => {

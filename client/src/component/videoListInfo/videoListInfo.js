@@ -59,14 +59,6 @@ class VideoListInfo extends React.Component {
         })
     }
 
-    handleChange = (event) => {
-        this.setState({
-            sortBy: event.target.value
-        })
-        // setSortBy(event.target.value);
-    };
-
-
     render() {
         if (!this.state.videoListInfo) {
             return (
@@ -108,26 +100,9 @@ class VideoListInfo extends React.Component {
 
         return (
             <div>
-                {console.log(this.state.channelId)}
+                {/*{console.log(this.state.channelId)}*/}
                 {console.log(this.state.videoListInfo[0])}
                 <Navbar />
-                {/*<Box sx={{ width: "30%" , ml:"15%", marginBottom:"20px", marginTop:"30px"}}>*/}
-                {/*    <FormControl fullWidth>*/}
-                {/*        <InputLabel id="demo-simple-select-label">Sort By</InputLabel>*/}
-                {/*        <Select*/}
-                {/*            labelId="demo-simple-select-label"*/}
-                {/*            id="demo-simple-select"*/}
-                {/*            label="Sort By"*/}
-                {/*            value={this.state.sortBy}*/}
-                {/*            onChange={this.state.handleChange}*/}
-                {/*        >*/}
-                {/*            <MenuItem value={1}>View Count: high to low</MenuItem>*/}
-                {/*            <MenuItem value={2}>View Count: low to high</MenuItem>*/}
-                {/*            <MenuItem value={3}>Published Time: latest to earliest</MenuItem>*/}
-                {/*            <MenuItem value={4}>Published Time: earliest to latest</MenuItem>*/}
-                {/*        </Select>*/}
-                {/*    </FormControl>*/}
-                {/*</Box>*/}
                 <div className="linkPosition">
                     <Link to={`/channel/${this.state.channelId}`}>
                         <div className="backButton">
@@ -140,10 +115,10 @@ class VideoListInfo extends React.Component {
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell>Video List Title</StyledTableCell>
-                                <StyledTableCell>Description</StyledTableCell>
-                                <StyledTableCell>Video Number</StyledTableCell>
-                                <StyledTableCell>???</StyledTableCell>
+                                <StyledTableCell>Video Title</StyledTableCell>
+                                <StyledTableCell>Video Description</StyledTableCell>
+                                <StyledTableCell>Published Time</StyledTableCell>
+                                <StyledTableCell>View/Like/Comment Count</StyledTableCell>
                             </TableRow>
                         </TableHead>
                         {this.state.show ? (<TableBody>
@@ -154,6 +129,7 @@ class VideoListInfo extends React.Component {
                                         </StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.description}</StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.publishedAt.substring(0,10)+" "+videoList.snippet.publishedAt.substring(11,19)}</StyledTableCell>
+                                        <StyledTableCell>{videoList.statistics.viewCount + "/" + videoList.statistics.likeCount + "/" + videoList.statistics.commentCount}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                                 <StyledTableRow>
@@ -171,6 +147,7 @@ class VideoListInfo extends React.Component {
                                         </StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.description}</StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.publishedAt.substring(0,10)+" "+videoList.snippet.publishedAt.substring(11,19)}</StyledTableCell>
+                                        <StyledTableCell>{videoList.statistics.viewCount + "/" + videoList.statistics.likeCount + "/" + videoList.statistics.commentCount}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                                 <StyledTableRow>
