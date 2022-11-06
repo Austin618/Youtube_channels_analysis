@@ -46,6 +46,7 @@ class PlaylistInfo extends React.Component{
         console.log(this.state.channelId)
         getChannelInfo("playlists", this.state.channelId).then(json => {
             this.setState({playListInfo: json})
+            console.log(json)
         }).catch(error => {
             console.log(error)
         });
