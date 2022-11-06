@@ -77,6 +77,15 @@ class Home extends React.Component {
         return (
             <div>
                 <Navbar />
+                <div className="welcome">
+                    <h1>Welcome to Youtube Channel Analysis Tool.</h1>
+                    <h1>Please click type the Channel ID in the search bar to start.</h1><hr />
+                    <h2>For example:</h2>
+                    <h2>Google developers: UC_x5XG1OV2P6uZZ5FSM9Ttw</h2>
+                    <h2>Amazon: UCd6MoB9NC6uYN2grvUNT-Zg</h2>
+                    <h2>University of Toronto: UCWdY1GyPhp2TFpS82rFEOkQ</h2>
+                </div>
+
                 {/*<InputBase */}
                 {/*    sx={{ ml: "40%", width:"20%"}}*/}
                 {/*    placeholder="Please enter Channel ID..."*/}
