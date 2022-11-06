@@ -109,6 +109,7 @@ class PlaylistInfo extends React.Component{
             }));
         return (
             <div>
+                <Navbar />
                 {/*{resultFound ? (*/}
                     <div>
                     <div className="linkPosition">
