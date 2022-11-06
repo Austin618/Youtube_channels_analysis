@@ -93,7 +93,7 @@ class Channel extends React.Component {
                                     <p>{this.state.channelInfo[0].etag}</p>
 
                                     <label>Published at</label>
-                                    <p>{this.state.channelInfo[0].snippet.publishedAt}}</p>
+                                    <p>{this.state.channelInfo[0].snippet.publishedAt}</p>
 
                                     <label>Country</label>
                                     <p>{this.state.channelInfo[0].snippet.country}</p>
