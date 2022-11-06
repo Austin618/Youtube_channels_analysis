@@ -26,7 +26,7 @@ describe('Test channel API', () => {
     describe("Test GET /api/channel/:id", () => {
         it("GET requests should return status 200 for youtube channel UC_x5XG1OV2P6uZZ5FSM9Ttw",(done)=>{
             chai.request(server)
-                .get("/api/playlists/UC_x5XG1OV2P6uZZ5FSM9Ttw")
+                .get("/api/channel/UC_x5XG1OV2P6uZZ5FSM9Ttw")
                 .set("Content-Type", "application/json")
                 .end((err, response) => {
                     response.should.have.status(200);
