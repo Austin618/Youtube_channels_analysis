@@ -7,11 +7,9 @@
 #### 2. We will not modify the main branch until assignment graded
 #### 3. We will continue developing the next assignment in other branches
 
-## Assignment 1
+## Assignment 1 and 2
 
 * Deployment Link: https://csc302-assignments.herokuapp.com/
-
-* Database Access Link(using MongoDB Compass): mongodb+srv://1281784448yeqiming:ming98xin@assignments.os7jj8s.mongodb.net/test?retryWrites=true&w=majority
 
 ### Meeting notes
 * Please check all pdfs in ./MeetingNotes directory
