@@ -28,6 +28,7 @@ class App extends React.Component {
             <Route path='/channel/:id' element={<Channel/>}/>
             <Route path='/playlists/:id' element={<PlaylistInfo/>}/>
             <Route path='/videos/:id' element={<VideoListInfo/>}/>
+            <Route path='/playlists/:id' element={<PlaylistInfo/>}/>
             <Route path='/titleKeyword/:id' element={<TitleKeyword/>}/>
             <Route path='/descriptionKeyword/:id' element={<DescriptionKeyword/>}/>
           </Routes>

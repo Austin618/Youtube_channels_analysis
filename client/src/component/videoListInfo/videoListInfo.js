@@ -134,7 +134,7 @@ class VideoListInfo extends React.Component {
                                 ))}
                                 <StyledTableRow>
                                     <StyledTableCell component="th" scope="row"/>
-                                    <StyledTableCell id="showMore" align="center" onClick={()=>this.showLess()}>Show less...</StyledTableCell>
+                                    {this.state.videoListInfo.length>5 ? (<StyledTableCell id="showMore" align="center" onClick={()=>this.showLess()}>Show less...</StyledTableCell>):null}
                                     <StyledTableCell/>
                                     <StyledTableCell/>
                                 </StyledTableRow>
