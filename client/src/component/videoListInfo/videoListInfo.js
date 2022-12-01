@@ -33,19 +33,21 @@ class VideoListInfo extends React.Component {
 
             show: false,
             sortBy: '',
+
+            titleFrequency: [],
+            descriptionFrequency: [],
         };
     }
 
     componentDidMount() {
-        this.loadData()
+        void this.loadData(this.props.theApp);
     }
 
-    loadData() {
-        getChannelInfo("videos", this.state.channelId).then(json => {
-            this.setState({videoListInfo: json})
-        }).catch(error => {
-            console.log(error)
-        });
+    async loadData(theApp) {
+        const json = await getChannelInfo("videos", this.state.channelId);
+        this.setState({videoListInfo: json})
+        this.sortByVideoTitle(theApp, json)
+        this.sortByVideoDescription(theApp, json)
     }
 
     showMore = () => {
@@ -56,6 +58,30 @@ class VideoListInfo extends React.Component {
     showLess = () => {
         this.setState({
             show: false
+        })
+    }
+
+    sortByVideoTitle = (theApp, json) => {
+        let str_lst = [];
+        json.map((videoList) => {
+            str_lst.push(videoList.snippet.title)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
+        this.setState({
+            titleFrequency: str_frequency
+        })
+    }
+
+    sortByVideoDescription = (theApp, json) => {
+        let str_lst = [];
+        json.map((videoList) => {
+            str_lst.push(videoList.snippet.description)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
+        this.setState({
+            descriptionFrequency: str_frequency
         })
     }
 
@@ -98,10 +124,14 @@ class VideoListInfo extends React.Component {
             },
         }));
 
+        // const {theApp} = this.props;
+
+
         return (
             <div>
+                {/*{theApp.sortWords()}*/}
                 {/*{console.log(this.state.channelId)}*/}
-                {console.log(this.state.videoListInfo[0])}
+                {/*{console.log(this.state.videoListInfo[0])}*/}
                 <Navbar />
                 <div className="linkPosition">
                     <Link to={`/channel/${this.state.channelId}`}>
@@ -110,6 +140,39 @@ class VideoListInfo extends React.Component {
                         </div>
                     </Link>
                 </div>
+                <h1 className="title">Videos Info</h1>
+
+                <h3 className="leftMargin">Video Title High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                    <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                    <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <h3 className="leftMargin">Video Description High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">

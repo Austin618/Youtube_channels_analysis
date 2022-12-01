@@ -34,22 +34,21 @@ class PlaylistInfo extends React.Component{
 
             show: false,
             sortBy: '',
+
+            titleFrequency: [],
+            descriptionFrequency: [],
         };
     }
 
     componentDidMount() {
-        console.log(this.state.channelId)
-        this.loadData()
+        void this.loadData(this.props.theApp)
     }
 
-    loadData() {
-        console.log(this.state.channelId)
-        getChannelInfo("playlists", this.state.channelId).then(json => {
-            this.setState({playListInfo: json})
-            console.log(json)
-        }).catch(error => {
-            console.log(error)
-        });
+    async loadData(theApp) {
+        const json = await getChannelInfo("playlists", this.state.channelId);
+        this.setState({playListInfo: json});
+        this.sortByPlaylistTitle(theApp, json);
+        this.sortByPlaylistDescription(theApp, json);
     }
 
     showMore = () => {
@@ -69,6 +68,31 @@ class PlaylistInfo extends React.Component{
         })
         // setSortBy(event.target.value);
     };
+
+    sortByPlaylistTitle = (theApp, json) => {
+        let str_lst = [];
+        json.map((playList) => {
+            str_lst.push(playList.snippet.title)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
+        this.setState({
+            titleFrequency: str_frequency
+        })
+    }
+
+    sortByPlaylistDescription = (theApp, json) => {
+        let str_lst = [];
+        json.map((playList) => {
+            str_lst.push(playList.snippet.localized.description)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
+        this.setState({
+            descriptionFrequency: str_frequency
+        })
+    }
+
     render(){
         if (!this.state.playListInfo) {
             return (
@@ -88,7 +112,6 @@ class PlaylistInfo extends React.Component{
             )
         }
 
-
         const StyledTableRow = styled(TableRow)(({ theme }) => ({
             '&:nth-of-type(odd)': {
                 backgroundColor: theme.palette.action.hover,
@@ -98,6 +121,7 @@ class PlaylistInfo extends React.Component{
                 border: 0,
             },
             }));
+
         const StyledTableCell = styled(TableCell)(({ theme }) => ({
             [`&.${tableCellClasses.head}`]: {
                 backgroundColor: theme.palette.common.black,
@@ -107,11 +131,15 @@ class PlaylistInfo extends React.Component{
                 fontSize: 14,
             },
             }));
+
+        // const {theApp} = this.props;
+
         return (
             <div>
+                {/*{theApp.sortWords()}*/}
                 <Navbar />
                 {/*{resultFound ? (*/}
-                    <div>
+                <div>
                     <div className="linkPosition">
                     <Link to={`/channel/${this.state.channelId}`}>
                         <div className="backButton">
@@ -119,8 +147,40 @@ class PlaylistInfo extends React.Component{
                         </div>
                     </Link>
                 </div>
-                    <h1 id="title">Playlist Info</h1>
-    
+                <h1 className="title">Playlist Info</h1>
+
+                <h3 className="leftMargin">Playlist Title High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <h3 className="leftMargin">Playlist Description High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
                     <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead>
