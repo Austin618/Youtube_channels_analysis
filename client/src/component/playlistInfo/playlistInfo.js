@@ -33,10 +33,11 @@ class PlaylistInfo extends React.Component{
             playListInfo: null,
 
             show: false,
-            sortBy: '',
 
             titleFrequency: [],
             descriptionFrequency: [],
+
+            option: "",
         };
     }
 
@@ -62,13 +63,6 @@ class PlaylistInfo extends React.Component{
         })
     }
 
-    handleChange = (event) => {
-        this.setState({
-            sortBy: event.target.value
-        })
-        // setSortBy(event.target.value);
-    };
-
     sortByPlaylistTitle = (theApp, json) => {
         let str_lst = [];
         json.map((playList) => {
@@ -91,6 +85,28 @@ class PlaylistInfo extends React.Component{
         this.setState({
             descriptionFrequency: str_frequency
         })
+    }
+
+    handleChange(e){
+        this.setState({
+            option: e.target.value
+        })
+    }
+
+    sortTable = () => {
+        if (this.state.option === "") {
+            return;
+        } else if (this.state.option === "Video Count: High to Low") {
+            this.state.playListInfo.sort(function(a, b) {
+                return b.contentDetails.itemCount - a.contentDetails.itemCount
+            })
+        } else if (this.state.option === "Publish Time: New to Old") {
+            this.state.playListInfo.sort(function(a, b) {
+                const aTime = parseInt((a.snippet.publishedAt.slice(0, 10) + a.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                const bTime = parseInt((b.snippet.publishedAt.slice(0, 10) + b.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                return bTime - aTime;
+            })
+        }
     }
 
     render(){
@@ -181,14 +197,24 @@ class PlaylistInfo extends React.Component{
                     </Table>
                 </TableContainer>
 
-                    <TableContainer component={Paper}>
+                <div className="leftMargin">
+                    <h3>Choose order here:</h3>
+                    <select value={this.state.option} onChange={this.handleChange.bind(this)}>
+                        {this.sortTable()}
+                        <option value="" disabled hidden>Choose sort by:</option>
+                        <option value="Video Count: High to Low">Video Count: High to Low</option>
+                        <option value="Publish Time: New to Old">Publish Time: New to Old</option>
+                    </select>
+                </div>
+
+                <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead>
                         <TableRow>
                             <StyledTableCell>Playlist Title</StyledTableCell>
                             <StyledTableCell>Description</StyledTableCell>
                             <StyledTableCell>Video Number</StyledTableCell>
-                            <StyledTableCell >Published At</StyledTableCell>
+                            <StyledTableCell >Published Time</StyledTableCell>
                         </TableRow>
                         </TableHead>
                             {this.state.show ? (<TableBody>
@@ -231,11 +257,11 @@ class PlaylistInfo extends React.Component{
                             }
                         
                     </Table>
-                    </TableContainer>
-                    </div>
-                {/*// )*/}
-                {/*// :null}*/}
-            </div>)
+                </TableContainer>
+            </div>
+        {/*// )*/}
+        {/*// :null}*/}
+        </div>)
     }
     
 }

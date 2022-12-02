@@ -32,10 +32,11 @@ class VideoListInfo extends React.Component {
             videoListInfo: null,
 
             show: false,
-            sortBy: '',
 
             titleFrequency: [],
             descriptionFrequency: [],
+
+            option: "",
         };
     }
 
@@ -85,6 +86,49 @@ class VideoListInfo extends React.Component {
         })
     }
 
+    printNum = (view, like, comment) => {
+        if (view === undefined) {
+            view = 0;
+        }
+        if (like === undefined) {
+            like = 0;
+        }
+        if (comment === undefined) {
+            comment = 0;
+        }
+        return "view: " + view + "\n" + "like: " + like + "\n" + "comment: " + comment
+    }
+
+    handleChange(e){
+        this.setState({
+            option: e.target.value
+        })
+    }
+
+    sortTable = () => {
+        if (this.state.option === "") {
+            return;
+        } else if (this.state.option === "Publish Time: New to Old") {
+            this.state.videoListInfo.sort(function(a, b) {
+                const aTime = parseInt((a.snippet.publishedAt.slice(0, 10) + a.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                const bTime = parseInt((b.snippet.publishedAt.slice(0, 10) + b.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                return bTime - aTime;
+            })
+        } else if (this.state.option === "View Count: High to Low") {
+            this.state.videoListInfo.sort(function(a, b) {
+                return b.statistics.viewCount - a.statistics.viewCount
+            })
+        } else if (this.state.option === "Like Count: High to Low") {
+            this.state.videoListInfo.sort(function (a, b) {
+                return b.statistics.likeCount - a.statistics.likeCount
+            })
+        } else if (this.state.option === "Comment Count: High to Low") {
+            this.state.videoListInfo.sort(function (a, b) {
+                return b.statistics.commentCount - a.statistics.commentCount
+            })
+        }
+    }
+
     render() {
         if (!this.state.videoListInfo) {
             return (
@@ -125,7 +169,6 @@ class VideoListInfo extends React.Component {
         }));
 
         // const {theApp} = this.props;
-
 
         return (
             <div>
@@ -174,6 +217,18 @@ class VideoListInfo extends React.Component {
                     </Table>
                 </TableContainer>
 
+                <div className="leftMargin">
+                    <h3>Choose order here:</h3>
+                    <select value={this.state.option} onChange={this.handleChange.bind(this)}>
+                        {this.sortTable()}
+                        <option value="" disabled hidden>Choose sort by:</option>
+                        <option value="Publish Time: New to Old">Publish Time: New to Old</option>
+                        <option value="View Count: High to Low">View Count: High to Low</option>
+                        <option value="Like Count: High to Low">Like Count: High to Low</option>
+                        <option value="Comment Count: High to Low">Comment Count: High to Low</option>
+                    </select>
+                </div>
+
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead>
@@ -192,7 +247,7 @@ class VideoListInfo extends React.Component {
                                         </StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.description}</StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.publishedAt.substring(0,10)+" "+videoList.snippet.publishedAt.substring(11,19)}</StyledTableCell>
-                                        <StyledTableCell>{videoList.statistics.viewCount + "/" + videoList.statistics.likeCount + "/" + videoList.statistics.commentCount}</StyledTableCell>
+                                        <StyledTableCell>{this.printNum(videoList.statistics.viewCount, videoList.statistics.likeCount, videoList.statistics.commentCount)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                                 <StyledTableRow>
@@ -210,7 +265,7 @@ class VideoListInfo extends React.Component {
                                         </StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.description}</StyledTableCell>
                                         <StyledTableCell>{videoList.snippet.publishedAt.substring(0,10)+" "+videoList.snippet.publishedAt.substring(11,19)}</StyledTableCell>
-                                        <StyledTableCell>{videoList.statistics.viewCount + "/" + videoList.statistics.likeCount + "/" + videoList.statistics.commentCount}</StyledTableCell>
+                                        <StyledTableCell>{this.printNum(videoList.statistics.viewCount, videoList.statistics.likeCount, videoList.statistics.commentCount)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                                 <StyledTableRow>
