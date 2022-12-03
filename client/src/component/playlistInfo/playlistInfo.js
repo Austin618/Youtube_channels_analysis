@@ -70,9 +70,13 @@ class PlaylistInfo extends React.Component{
             str_lst.push(playList.snippet.title)
         });
         let all_str = str_lst.join(' ')
-        let str_frequency = theApp.sortWords(all_str);
-        this.setState({
-            titleFrequency: str_frequency
+        theApp.sortWords(all_str).then((result)=>{
+            result.sort(function(a, b) {
+                return b[1] - a[1];
+              })
+            this.setState({
+                titleFrequency: result
+            })
         })
     }
 
@@ -82,9 +86,13 @@ class PlaylistInfo extends React.Component{
             str_lst.push(playList.snippet.localized.description)
         });
         let all_str = str_lst.join(' ')
-        let str_frequency = theApp.sortWords(all_str);
-        this.setState({
-            descriptionFrequency: str_frequency
+        theApp.sortWords(all_str).then((result)=>{
+            result.sort(function(a, b) {
+                return b[1] - a[1];
+              })
+            this.setState({
+                descriptionFrequency: result
+            })
         })
     }
 
@@ -169,12 +177,16 @@ class PlaylistInfo extends React.Component{
                 <h3 className="leftMargin">Playlist Title High Frequency Words:</h3>
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                    
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                        {this.state.titleFrequency.length===0 ? <StyledTableCell> </StyledTableCell>:null}
                             {this.state.titleFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
-                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                        <TableBody>
+                            <StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.titleFrequency.length===0 ? <StyledTableCell>Loading...</StyledTableCell>:null}
                             {this.state.titleFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -186,11 +198,13 @@ class PlaylistInfo extends React.Component{
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                        {this.state.descriptionFrequency.length===0 ? <StyledTableCell> </StyledTableCell>:null}
                             {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
                         <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                        {this.state.descriptionFrequency.length===0 ? <StyledTableCell>Loading...</StyledTableCell>:null}
                             {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -248,12 +262,14 @@ class PlaylistInfo extends React.Component{
                                     <StyledTableCell>{playlist.snippet.publishedAt.substring(0,10)+" "+playlist.snippet.publishedAt.substring(11,19)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
-                                <StyledTableRow>
+                                {this.state.playListInfo.length>6 ? (<StyledTableRow>
                                     <StyledTableCell component="th" scope="row"/>
                                     <StyledTableCell id="showMore" align="center" onClick={()=>this.showMore()}>Show more...</StyledTableCell>
                                     <StyledTableCell/>
                                     <StyledTableCell/>
-                                    </StyledTableRow>
+                                    </StyledTableRow>):null
+                                }
+                                
                             </TableBody>)
                             }
                         

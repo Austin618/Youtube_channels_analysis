@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 
-const apiKey = "AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ";
+const apiKey = "AIzaSyDNsbyAt5gnYvEtYnZKPBT8k1p2XMNpFjI";
 const baseApiUrl = "https://youtube.googleapis.com/youtube/v3";
 // https://youtube.googleapis.com/youtube/v3
 // /channels?part=snippet%2CcontentDetails%2Cstatistics

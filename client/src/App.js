@@ -22,7 +22,7 @@ class App extends React.Component {
     super(props);
   };
 
-  sortWords(str,type,videoList,title) {
+  async sortWords(str,type,videoList,title) {
     const meaninglessWords = [
       'again', 'too', 'then', 'also', 'and', 'but', 'in', 'on', 'at', 'for',
       'a', 'an', 'the', 'if', 'because', 'so', 'before', 'after', 'is',
@@ -57,43 +57,59 @@ class App extends React.Component {
     }
 
     let result = [];
-    let objCommentCount = {};
-    let objFavoriteCount = {};
-    let objLikeCount = {};
-    let objViewCount = {};
+    console.log(obj)
+
+    var asyncFunc = function(videoList,obj, element) {
+      return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            for(let i=0;i<videoList.length;i++){
+              if(title){
+                if(videoList[i].snippet.title.includes(element)){
+                  obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
+    
+                }
+              }else{
+                if(videoList[i].snippet.description.includes(element)){
+                  obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
+                  
+                }
+              }
+              
+            }
+            resolve();
+          }, 0);
+      });
+  }
+
+    var pushFunc=function(result, obj, element) {
+      return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            result.push([element, obj[element]]);
+              resolve();
+          }, 0);
+      });
+  }
+
     for (let element in obj) {
       if(type==="video"){
-        for(let i=0;i<videoList.length;i++){
-          if(title){
-            if(videoList[i].snippet.title.includes(element)){
-              obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
-              objCommentCount[element] = objCommentCount[element] ? objCommentCount[element]+videoList[i].statistics.commentCount : videoList[i].statistics.commentCount;
-              objFavoriteCount[element] = objFavoriteCount[element] ? objFavoriteCount[element]+videoList[i].statistics.favoriteCount : videoList[i].statistics.favoriteCount;
-              objLikeCount[element] = objLikeCount[element] ? objLikeCount[element]+videoList[i].statistics.likeCount : videoList[i].statistics.likeCount;
-              objViewCount[element] = objViewCount[element] ? objViewCount[element]+videoList[i].statistics.viewCount : videoList[i].statistics.viewCount;
-            }
-          }else{
-            if(videoList[i].snippet.description.includes(element)){
-              obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
-              objCommentCount[element] = objCommentCount[element] ? objCommentCount[element]+parseInt(videoList[i].statistics.commentCount) : parseInt(videoList[i].statistics.commentCount);
-              objFavoriteCount[element] = objFavoriteCount[element] ? objFavoriteCount[element]+parseInt(videoList[i].statistics.favoriteCount) : parseInt(videoList[i].statistics.favoriteCount);
-              objLikeCount[element] = objLikeCount[element] ? objLikeCount[element]+parseInt(videoList[i].statistics.likeCount) : parseInt(videoList[i].statistics.likeCount);
-              objViewCount[element] = objViewCount[element] ? objViewCount[element]+parseInt(videoList[i].statistics.viewCount) : parseInt(videoList[i].statistics.viewCount);
-            }
-          }
-          
-        }
+        await asyncFunc(videoList,obj, element)
       }
-
-      result.push([element, obj[element]]);
+    await pushFunc(result, obj, element)
+      // result.push([element, obj[element]]);
     }
-
-    result.sort(function(a, b) {
-      return b[1] - a[1];
-    })
-
-
-    return result;
+    
+    var sort=function(result) {
+      return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            result.sort(function(a, b) {
+              return b[1] - a[1];
+            })
+              resolve();
+          }, 0);
+      });
+  }
+  await sort(result)
+    return  result;
   }
 
   render() {

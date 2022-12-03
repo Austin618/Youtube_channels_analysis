@@ -74,10 +74,17 @@ class VideoListInfo extends React.Component {
         videoList.sort(function(a, b) {
             return b.statistics.viewCount - a.statistics.viewCount
         })
-        let result = theApp.sortWords(all_str,"video",videoList,true);
-        this.setState({
-            titleFrequency: result
+        
+        theApp.sortWords(all_str,"video",videoList,true).then((result)=>{
+            result.sort(function(a, b) {
+                return b[1] - a[1];
+              })
+            this.setState({
+                titleFrequency: result
+            })
+            console.log(result)
         })
+        
     }
 
     sortByVideoDescription = (theApp, json) => {
@@ -90,10 +97,14 @@ class VideoListInfo extends React.Component {
         videoList.sort(function(a, b) {
             return b.statistics.viewCount - a.statistics.viewCount
         })
-        console.log(videoList)
-        let result = theApp.sortWords(all_str,"video",videoList,false);
-        this.setState({
-            descriptionFrequency: result
+        theApp.sortWords(all_str,"video",videoList,false).then((result)=>{
+            result.sort(function(a, b) {
+                return b[1] - a[1];
+              })
+            this.setState({
+                descriptionFrequency: result
+            })
+            console.log(result)
         })
     }
 
@@ -179,6 +190,7 @@ class VideoListInfo extends React.Component {
             },
         }));
 
+
         // const {theApp} = this.props;
 
         return (
@@ -201,11 +213,13 @@ class VideoListInfo extends React.Component {
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                        {this.state.titleFrequency.length===0 ? <StyledTableCell> </StyledTableCell>:null}
                             {this.state.titleFrequency.slice(0, 20).map((arr) => (
                                     <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
                         <TableBody><StyledTableRow><StyledTableCell>Total Score</StyledTableCell>
+                        {this.state.titleFrequency.length===0 ? <StyledTableCell>Loading...</StyledTableCell>:null}
                             {this.state.titleFrequency.slice(0, 20).map((arr) => (
                                     <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -218,11 +232,13 @@ class VideoListInfo extends React.Component {
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                        {this.state.descriptionFrequency.length===0 ? <StyledTableCell> </StyledTableCell>:null}
                             {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
                         <TableBody><StyledTableRow><StyledTableCell>Total Score</StyledTableCell>
+                        {this.state.descriptionFrequency.length===0 ? <StyledTableCell>Loading...</StyledTableCell>:null}
                             {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -281,12 +297,14 @@ class VideoListInfo extends React.Component {
                                         <StyledTableCell>{this.printNum(videoList.statistics.viewCount, videoList.statistics.likeCount, videoList.statistics.commentCount)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
-                                <StyledTableRow>
+                                {this.state.videoListInfo.length>6 ? (<StyledTableRow>
                                     <StyledTableCell component="th" scope="row"/>
                                     <StyledTableCell id="showMore" align="center" onClick={()=>this.showMore()}>Show more...</StyledTableCell>
                                     <StyledTableCell/>
                                     <StyledTableCell/>
-                                </StyledTableRow>
+                                    </StyledTableRow>):null
+                                }
+                                
                             </TableBody>)
                         }
 
