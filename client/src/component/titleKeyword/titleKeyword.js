@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 
 
-/* Component for the Home page */
+/* Component for the title keyword table */
 class TitleKeyword extends React.Component {
 
     constructor(props) {

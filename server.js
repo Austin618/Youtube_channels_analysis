@@ -51,6 +51,9 @@ app.get('/api/tests', (req, res) => {
 
 // https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // /api/channels/UC_x5XG1OV2P6uZZ5FSM9Ttw
+/*
+API to get channel info by channelId
+*/
 app.get("/api/channels/:channel_id", async(req, res) => {
     const channelId = req.params.channel_id;
     const url = `${baseApiUrl}/channels?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}`
@@ -60,6 +63,9 @@ app.get("/api/channels/:channel_id", async(req, res) => {
     res.send(response.data.items);
 })
 
+/*
+API to get playlists info by channelId
+*/
 // https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // /api/playlists/UC_x5XG1OV2P6uZZ5FSM9Ttw
 app.get("/api/playlists/:channel_id", async(req, res) => {
@@ -71,7 +77,9 @@ app.get("/api/playlists/:channel_id", async(req, res) => {
     res.send(response.data.items);
 })
 
-
+/*
+API to get videos info by channelId
+*/
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=htG27DW5ju4%2CrDZ1AjDJjFI%2CogfYd705cRs&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // /api/videos/UC_x5XG1OV2P6uZZ5FSM9Ttw

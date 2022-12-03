@@ -9,7 +9,7 @@ import {getChannelInfo} from "../../actions/searchChannel";
 
 
 
-/* Component for the Home page */
+/* Component for the Channel page */
 class Channel extends React.Component {
 
     constructor(props) {

@@ -22,6 +22,9 @@ class App extends React.Component {
     super(props);
   };
 
+  /*
+  Keyword recommendation algorithm
+  */
   async sortWords(str,type,videoList,title) {
     const meaninglessWords = [
       'again', 'too', 'then', 'also', 'and', 'but', 'in', 'on', 'at', 'for',

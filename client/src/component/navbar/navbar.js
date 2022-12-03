@@ -6,7 +6,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 
 
-/* Component for the Home page */
+/* Component for the navigation bar */
 class Navbar extends React.Component {
 
     constructor(props) {

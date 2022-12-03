@@ -45,6 +45,9 @@ class PlaylistInfo extends React.Component{
         void this.loadData(this.props.theApp)
     }
 
+    /*
+    load all the required playlist info
+    */
     async loadData(theApp) {
         const json = await getChannelInfo("playlists", this.state.channelId);
         this.setState({playListInfo: json});
@@ -52,6 +55,9 @@ class PlaylistInfo extends React.Component{
         this.sortByPlaylistDescription(theApp, json);
     }
 
+    /*
+    show more if there are more than six playlists
+    */
     showMore = () => {
         this.setState({
             show: true
@@ -63,10 +69,12 @@ class PlaylistInfo extends React.Component{
         })
     }
 
+    /*
+    Sort playlist title keywords
+    */
     sortByPlaylistTitle = (theApp, json) => {
         let str_lst = [];
         json.map((playList) => {
-            // console.log(getChannelInfo("playlistItem",playList.id))
             str_lst.push(playList.snippet.title)
         });
         let all_str = str_lst.join(' ')
@@ -80,6 +88,9 @@ class PlaylistInfo extends React.Component{
         })
     }
 
+    /*
+    Sort playlist description keywords
+    */
     sortByPlaylistDescription = (theApp, json) => {
         let str_lst = [];
         json.map((playList) => {
@@ -102,6 +113,9 @@ class PlaylistInfo extends React.Component{
         })
     }
 
+    /*
+    Sort playlist info table
+    */
     sortTable = () => {
         if (this.state.option === "") {
             return;

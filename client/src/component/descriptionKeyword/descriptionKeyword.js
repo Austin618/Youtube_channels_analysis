@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 
 
-/* Component for the Home page */
+/* Component for the description keyword table */
 class DescriptionKeyword extends React.Component {
 
     constructor(props) {

@@ -61,7 +61,9 @@ class VideoListInfo extends React.Component {
             show: false
         })
     }
-
+    /*
+    Sort video title keywords
+    */
     sortByVideoTitle = (theApp, json) => {
         let str_lst = [];
         json.map((videoList) => {
@@ -87,6 +89,9 @@ class VideoListInfo extends React.Component {
         
     }
 
+    /*
+    Sort video description keywords
+    */
     sortByVideoDescription = (theApp, json) => {
         let str_lst = [];
         json.map((videoList) => {
@@ -126,7 +131,9 @@ class VideoListInfo extends React.Component {
             option: e.target.value
         })
     }
-
+    /*
+    Sort video info table
+    */
     sortTable = () => {
         if (this.state.option === "") {
             return;
