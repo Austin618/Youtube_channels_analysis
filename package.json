@@ -9,7 +9,7 @@
     "client": "npm start --prefix client",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "test": "mocha --timeout 300000 --exit"
+    "test": "mocha --timeout 50000 --exit"
   },
   "repository": {
     "type": "git",
