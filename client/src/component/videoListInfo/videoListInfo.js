@@ -67,10 +67,16 @@ class VideoListInfo extends React.Component {
         json.map((videoList) => {
             str_lst.push(videoList.snippet.title)
         });
+        
         let all_str = str_lst.join(' ')
-        let str_frequency = theApp.sortWords(all_str);
+
+        let videoList=json
+        videoList.sort(function(a, b) {
+            return b.statistics.viewCount - a.statistics.viewCount
+        })
+        let result = theApp.sortWords(all_str,"video",videoList,true);
         this.setState({
-            titleFrequency: str_frequency
+            titleFrequency: result
         })
     }
 
@@ -80,9 +86,14 @@ class VideoListInfo extends React.Component {
             str_lst.push(videoList.snippet.description)
         });
         let all_str = str_lst.join(' ')
-        let str_frequency = theApp.sortWords(all_str);
+        let videoList=json
+        videoList.sort(function(a, b) {
+            return b.statistics.viewCount - a.statistics.viewCount
+        })
+        console.log(videoList)
+        let result = theApp.sortWords(all_str,"video",videoList,false);
         this.setState({
-            descriptionFrequency: str_frequency
+            descriptionFrequency: result
         })
     }
 
@@ -185,7 +196,8 @@ class VideoListInfo extends React.Component {
                 </div>
                 <h1 className="title">Videos Info</h1>
 
-                <h3 className="leftMargin">Video Title High Frequency Words:</h3>
+                <h3 className="leftMargin">Recommended Keywords For Video Titles:</h3>
+                <h4 className="leftMargin">favorite count+like count+view count+comment count</h4>
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
@@ -193,7 +205,7 @@ class VideoListInfo extends React.Component {
                                     <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
-                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                        <TableBody><StyledTableRow><StyledTableCell>Total Score</StyledTableCell>
                             {this.state.titleFrequency.slice(0, 20).map((arr) => (
                                     <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -201,7 +213,8 @@ class VideoListInfo extends React.Component {
                     </Table>
                 </TableContainer>
 
-                <h3 className="leftMargin">Video Description High Frequency Words:</h3>
+                <h3 className="leftMargin">Recommended Keywords For Video Descriptions:</h3>
+                <h4 className="leftMargin">favorite count+like count+view count+comment count</h4>
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
@@ -209,7 +222,7 @@ class VideoListInfo extends React.Component {
                                 <StyledTableCell>{arr[0]}</StyledTableCell>
                             ))}</TableRow>
                         </TableHead>
-                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                        <TableBody><StyledTableRow><StyledTableCell>Total Score</StyledTableCell>
                             {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
                                 <StyledTableCell>{arr[1]}</StyledTableCell>
                             ))}</StyledTableRow>
@@ -222,7 +235,7 @@ class VideoListInfo extends React.Component {
                     <select value={this.state.option} onChange={this.handleChange.bind(this)}>
                         {this.sortTable()}
                         <option value="" disabled hidden>Choose sort by:</option>
-                        <option value="Publish Time: New to Old">Publish Time: New to Old</option>
+                        <option value="Publish Time: New to Old">Publish Time: latest to earliest</option>
                         <option value="View Count: High to Low">View Count: High to Low</option>
                         <option value="Like Count: High to Low">Like Count: High to Low</option>
                         <option value="Comment Count: High to Low">Comment Count: High to Low</option>

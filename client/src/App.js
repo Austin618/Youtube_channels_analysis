@@ -22,7 +22,7 @@ class App extends React.Component {
     super(props);
   };
 
-  sortWords(str) {
+  sortWords(str,type,videoList,title) {
     const meaninglessWords = [
       'again', 'too', 'then', 'also', 'and', 'but', 'in', 'on', 'at', 'for',
       'a', 'an', 'the', 'if', 'because', 'so', 'before', 'after', 'is',
@@ -31,28 +31,67 @@ class App extends React.Component {
       'how', 'who', 'than', 'such', 'though', 'from', 'above', 'below', 'no',
       'yes', 'of', 'I', 'am', 'you', 'he', 'his', 'him', 'she', 'her', 'hers',
       'we', 'our', 'ours', 'they', 'their', 'theirs', 'you', 'your', 'to',
-      'with', 'by', 'do'
+      'with', 'by', 'do','i','or','it','as'
     ];
 
     let obj = {};
-
-    str.replace(/[^a-zA-Z0-9 ]/g, '').trim().toLowerCase().split(/\s+/).forEach((element)=>{
-      obj[element] = obj[element] ? ++obj[element] : 1;
-    });
+    if(type==='video'){
+      str.replace(/[^a-zA-Z0-9 ]/g, '').trim().toLowerCase().split(/\s+/).forEach((element)=>{
+        obj[element] = obj[element] ? obj[element] : 1;
+      });
+    }else{
+      str.replace(/[^a-zA-Z0-9 ]/g, '').trim().toLowerCase().split(/\s+/).forEach((element)=>{
+        obj[element] = obj[element] ? ++obj[element] : 1;
+      });
+    }
+    
 
     for (let i = 0; i < meaninglessWords.length; i++) {
       delete obj[meaninglessWords[i]];
     }
 
-    let result = [];
+    for(let element in obj){
+      if(element.length<3){
+        delete obj[element]
+      }
+    }
 
+    let result = [];
+    let objCommentCount = {};
+    let objFavoriteCount = {};
+    let objLikeCount = {};
+    let objViewCount = {};
     for (let element in obj) {
+      if(type==="video"){
+        for(let i=0;i<videoList.length;i++){
+          if(title){
+            if(videoList[i].snippet.title.includes(element)){
+              obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
+              objCommentCount[element] = objCommentCount[element] ? objCommentCount[element]+videoList[i].statistics.commentCount : videoList[i].statistics.commentCount;
+              objFavoriteCount[element] = objFavoriteCount[element] ? objFavoriteCount[element]+videoList[i].statistics.favoriteCount : videoList[i].statistics.favoriteCount;
+              objLikeCount[element] = objLikeCount[element] ? objLikeCount[element]+videoList[i].statistics.likeCount : videoList[i].statistics.likeCount;
+              objViewCount[element] = objViewCount[element] ? objViewCount[element]+videoList[i].statistics.viewCount : videoList[i].statistics.viewCount;
+            }
+          }else{
+            if(videoList[i].snippet.description.includes(element)){
+              obj[element]=obj[element]+parseInt(videoList[i].statistics.commentCount)+parseInt(videoList[i].statistics.favoriteCount)+parseInt(videoList[i].statistics.likeCount)+parseInt(videoList[i].statistics.viewCount)
+              objCommentCount[element] = objCommentCount[element] ? objCommentCount[element]+parseInt(videoList[i].statistics.commentCount) : parseInt(videoList[i].statistics.commentCount);
+              objFavoriteCount[element] = objFavoriteCount[element] ? objFavoriteCount[element]+parseInt(videoList[i].statistics.favoriteCount) : parseInt(videoList[i].statistics.favoriteCount);
+              objLikeCount[element] = objLikeCount[element] ? objLikeCount[element]+parseInt(videoList[i].statistics.likeCount) : parseInt(videoList[i].statistics.likeCount);
+              objViewCount[element] = objViewCount[element] ? objViewCount[element]+parseInt(videoList[i].statistics.viewCount) : parseInt(videoList[i].statistics.viewCount);
+            }
+          }
+          
+        }
+      }
+
       result.push([element, obj[element]]);
     }
 
     result.sort(function(a, b) {
       return b[1] - a[1];
     })
+
 
     return result;
   }

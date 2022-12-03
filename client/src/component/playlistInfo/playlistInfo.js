@@ -66,6 +66,7 @@ class PlaylistInfo extends React.Component{
     sortByPlaylistTitle = (theApp, json) => {
         let str_lst = [];
         json.map((playList) => {
+            // console.log(getChannelInfo("playlistItem",playList.id))
             str_lst.push(playList.snippet.title)
         });
         let all_str = str_lst.join(' ')
@@ -203,7 +204,7 @@ class PlaylistInfo extends React.Component{
                         {this.sortTable()}
                         <option value="" disabled hidden>Choose sort by:</option>
                         <option value="Video Count: High to Low">Video Count: High to Low</option>
-                        <option value="Publish Time: New to Old">Publish Time: New to Old</option>
+                        <option value="Publish Time: New to Old">Publish Time: latest to earliest</option>
                     </select>
                 </div>
 
