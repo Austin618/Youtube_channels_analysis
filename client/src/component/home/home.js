@@ -21,6 +21,7 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
+            // option: ""
             // str: "",
             // // channelId: "",
             // resultFound: false,
@@ -71,7 +72,19 @@ class Home extends React.Component {
     //         })
     //       });
     // }
-    
+    // sortTable = () => {
+    //     if (this.state.option === "") {
+    //         return;
+    //     }
+    //     console.log(this.state.option)
+    //     console.log("sort algorithm running!")
+    // }
+    //
+    // handleChange(e){
+    //     this.setState({
+    //         option: e.target.value
+    //     })
+    // }
 
     render() {
         return (
@@ -85,6 +98,14 @@ class Home extends React.Component {
                     <h2>Amazon: UCd6MoB9NC6uYN2grvUNT-Zg</h2>
                     <h2>University of Toronto: UCWdY1GyPhp2TFpS82rFEOkQ</h2>
                 </div>
+
+                {/*<select value={this.state.option} onChange={this.handleChange.bind(this)}>*/}
+                {/*    {this.sortTable()}*/}
+                {/*    /!*<p>Choose order here: </p>*!/*/}
+                {/*    <option value="" disabled hidden>Choose sort by:</option>*/}
+                {/*    <option value="Video Count: High to Low">Video Count: High to Low</option>*/}
+                {/*    <option value="Publish Time: New to Old">Publish Time: New to Old</option>*/}
+                {/*</select>*/}
 
                 {/*<InputBase */}
                 {/*    sx={{ ml: "40%", width:"20%"}}*/}

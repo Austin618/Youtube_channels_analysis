@@ -33,23 +33,23 @@ class PlaylistInfo extends React.Component{
             playListInfo: null,
 
             show: false,
-            sortBy: '',
+
+            titleFrequency: [],
+            descriptionFrequency: [],
+
+            option: "",
         };
     }
 
     componentDidMount() {
-        console.log(this.state.channelId)
-        this.loadData()
+        void this.loadData(this.props.theApp)
     }
 
-    loadData() {
-        console.log(this.state.channelId)
-        getChannelInfo("playlists", this.state.channelId).then(json => {
-            this.setState({playListInfo: json})
-            console.log(json)
-        }).catch(error => {
-            console.log(error)
-        });
+    async loadData(theApp) {
+        const json = await getChannelInfo("playlists", this.state.channelId);
+        this.setState({playListInfo: json});
+        this.sortByPlaylistTitle(theApp, json);
+        this.sortByPlaylistDescription(theApp, json);
     }
 
     showMore = () => {
@@ -63,12 +63,53 @@ class PlaylistInfo extends React.Component{
         })
     }
 
-    handleChange = (event) => {
+    sortByPlaylistTitle = (theApp, json) => {
+        let str_lst = [];
+        json.map((playList) => {
+            // console.log(getChannelInfo("playlistItem",playList.id))
+            str_lst.push(playList.snippet.title)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
         this.setState({
-            sortBy: event.target.value
+            titleFrequency: str_frequency
         })
-        // setSortBy(event.target.value);
-    };
+    }
+
+    sortByPlaylistDescription = (theApp, json) => {
+        let str_lst = [];
+        json.map((playList) => {
+            str_lst.push(playList.snippet.localized.description)
+        });
+        let all_str = str_lst.join(' ')
+        let str_frequency = theApp.sortWords(all_str);
+        this.setState({
+            descriptionFrequency: str_frequency
+        })
+    }
+
+    handleChange(e){
+        this.setState({
+            option: e.target.value
+        })
+    }
+
+    sortTable = () => {
+        if (this.state.option === "") {
+            return;
+        } else if (this.state.option === "Video Count: High to Low") {
+            this.state.playListInfo.sort(function(a, b) {
+                return b.contentDetails.itemCount - a.contentDetails.itemCount
+            })
+        } else if (this.state.option === "Publish Time: New to Old") {
+            this.state.playListInfo.sort(function(a, b) {
+                const aTime = parseInt((a.snippet.publishedAt.slice(0, 10) + a.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                const bTime = parseInt((b.snippet.publishedAt.slice(0, 10) + b.snippet.publishedAt.slice(11, 19)).replace(/[-:]/g, ''));
+                return bTime - aTime;
+            })
+        }
+    }
+
     render(){
         if (!this.state.playListInfo) {
             return (
@@ -88,7 +129,6 @@ class PlaylistInfo extends React.Component{
             )
         }
 
-
         const StyledTableRow = styled(TableRow)(({ theme }) => ({
             '&:nth-of-type(odd)': {
                 backgroundColor: theme.palette.action.hover,
@@ -98,6 +138,7 @@ class PlaylistInfo extends React.Component{
                 border: 0,
             },
             }));
+
         const StyledTableCell = styled(TableCell)(({ theme }) => ({
             [`&.${tableCellClasses.head}`]: {
                 backgroundColor: theme.palette.common.black,
@@ -107,11 +148,15 @@ class PlaylistInfo extends React.Component{
                 fontSize: 14,
             },
             }));
+
+        // const {theApp} = this.props;
+
         return (
             <div>
+                {/*{theApp.sortWords()}*/}
                 <Navbar />
                 {/*{resultFound ? (*/}
-                    <div>
+                <div>
                     <div className="linkPosition">
                     <Link to={`/channel/${this.state.channelId}`}>
                         <div className="backButton">
@@ -119,16 +164,58 @@ class PlaylistInfo extends React.Component{
                         </div>
                     </Link>
                 </div>
-                    <h1 id="title">Playlist Info</h1>
-    
-                    <TableContainer component={Paper}>
+                <h1 className="title">Playlist Info</h1>
+
+                <h3 className="leftMargin">Playlist Title High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.titleFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <h3 className="leftMargin">Playlist Description High Frequency Words:</h3>
+                <TableContainer component={Paper}>
+                    <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
+                        <TableHead><TableRow><StyledTableCell>Words</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[0]}</StyledTableCell>
+                            ))}</TableRow>
+                        </TableHead>
+                        <TableBody><StyledTableRow><StyledTableCell>Appear Times</StyledTableCell>
+                            {this.state.descriptionFrequency.slice(0, 20).map((arr) => (
+                                <StyledTableCell>{arr[1]}</StyledTableCell>
+                            ))}</StyledTableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <div className="leftMargin">
+                    <h3>Choose order here:</h3>
+                    <select value={this.state.option} onChange={this.handleChange.bind(this)}>
+                        {this.sortTable()}
+                        <option value="" disabled hidden>Choose sort by:</option>
+                        <option value="Video Count: High to Low">Video Count: High to Low</option>
+                        <option value="Publish Time: New to Old">Publish Time: latest to earliest</option>
+                    </select>
+                </div>
+
+                <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: "80%",ml:"10%", marginBottom:"30px"}} aria-label="customized table">
                         <TableHead>
                         <TableRow>
                             <StyledTableCell>Playlist Title</StyledTableCell>
                             <StyledTableCell>Description</StyledTableCell>
                             <StyledTableCell>Video Number</StyledTableCell>
-                            <StyledTableCell >Published At</StyledTableCell>
+                            <StyledTableCell >Published Time</StyledTableCell>
                         </TableRow>
                         </TableHead>
                             {this.state.show ? (<TableBody>
@@ -171,11 +258,11 @@ class PlaylistInfo extends React.Component{
                             }
                         
                     </Table>
-                    </TableContainer>
-                    </div>
-                {/*// )*/}
-                {/*// :null}*/}
-            </div>)
+                </TableContainer>
+            </div>
+        {/*// )*/}
+        {/*// :null}*/}
+        </div>)
     }
     
 }
