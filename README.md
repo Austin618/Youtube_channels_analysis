@@ -10,8 +10,8 @@
 ### Motivation
 There are more than 1 billion unique users visit YouTube each month and there are 37 million channels on YouTube. With so many channels coming up on Youtube, how to create high quality titles and descriptions for the youtube channel is important for all the youtubers. This website that could help people, especially YouTubers, to analyze how to create a popular youtube channel. The user would need to provide a channelId to the website and the website would all the channel information including channel title, channel description, playlists, videos, etc. The most important part is that it would help the user to find what are the keywords they can put into the video title and description to catch people’s eyes. The keywords are generated based on the previously published popular videos on this channel.
 
-
-* Deployment Link: https://csc302-assignments.herokuapp.com/
+### Website URL
+* https://csc302-assignments.herokuapp.com/
 
 ### Meeting notes
 * Please check all pdfs in ./MeetingNotes directory
@@ -20,7 +20,7 @@ There are more than 1 billion unique users visit YouTube each month and there ar
 * Please check CSC302_A1.pdf in ./Documentation directory 
 
 ### Roadmap
-* Please check Milestones part for Roadmap in CSC302_A1.pdf in ./Documentation directory 
+* Please check Milestones part for Roadmap in CSC302_A1.pdf and CSC302_A2.pdf in ./Documentation directory 
 
 * Please also check Roadmap from Github projects by clicking Github_main_repository -> Projects -> CSC302_Assignments_Roadmap
     * There are descriptions and status for each step of milestones
