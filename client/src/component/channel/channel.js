@@ -153,25 +153,6 @@ class Channel extends React.Component {
                         </div>
                     </div>
 
-                    {/*<div className="counter">*/}
-                    {/*    <div className="row">*/}
-                    {/*        <div className="bottomLeft">*/}
-                    {/*            <div className="count-data text-center">*/}
-                    {/*                <Link to={`/titleKeyword/${this.state.channelId}`}>*/}
-                    {/*                    <button>Title Keyword Recommend</button>*/}
-                    {/*                </Link>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="bottomRight">*/}
-                    {/*            <div className="count-data text-center">*/}
-                    {/*                <Link to={`/descriptionKeyword/${this.state.channelId}`}>*/}
-                    {/*                    <button>Description Keyword Recommend</button>*/}
-                    {/*                </Link>*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
                 </section>
             </div>
         );
