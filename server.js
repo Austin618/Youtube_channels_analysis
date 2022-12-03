@@ -93,7 +93,6 @@ app.get("/api/videos/:channel_id", async(req, res) => {
     const url2 = `${baseApiUrl}/videos?key=${apiKey}&part=snippet%2CcontentDetails%2Cstatistics&id=${videoIdUrls.slice(0, -3)}`;
     // console.log(url2);
     const response2 = await axios.get(url2);
-    // console.log(response2.data.items);
     res.send(response2.data.items);
 })
 
