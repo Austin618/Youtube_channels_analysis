@@ -71,14 +71,6 @@ app.get("/api/playlists/:channel_id", async(req, res) => {
     res.send(response.data.items);
 })
 
-app.get("/api/playlistItem/:playlist_id", async(req, res) => {
-    const playlistId = req.params.playlist_id;
-    const url = `${baseApiUrl}/playlistItems?key=${apiKey}&part=snippet%2CcontentDetails&playlistId=${playlistId}`
-    const response = await axios.get(url);
-    console.log(response)
-    // console.log(channelId)
-    res.send(response.data.items);
-})
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&channelId=UC_x5XG1OV2P6uZZ5FSM9Ttw&maxResults=50&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
 // https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=htG27DW5ju4%2CrDZ1AjDJjFI%2CogfYd705cRs&key=AIzaSyBputQWh3CtT1A70zw5WToqBWcARjpyaNQ
