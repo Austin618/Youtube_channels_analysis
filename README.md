@@ -17,7 +17,7 @@ There are more than 1 billion unique users visit YouTube each month and there ar
 * Please check all pdfs in ./MeetingNotes directory
 
 ### Documentation
-* Please check CSC302_A1.pdf in ./Documentation directory 
+* Please check CSC302_Ax.pdf in ./Documentation directory 
 
 ### Roadmap
 * Please check Milestones part for Roadmap in CSC302_A1.pdf and CSC302_A2.pdf in ./Documentation directory 
@@ -40,3 +40,4 @@ To run API tests, you can run the code below:
 ```
 $ docker-compose -p tests run csc302assignments npm run test
 ```
+If the above commends don't work, try adding "sudo" at the front.
